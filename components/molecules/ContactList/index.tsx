@@ -1,6 +1,11 @@
 import Link from "next/link";
 import React from "react";
-import { FaGithub, FaLinkedin, FaMapMarkedAlt } from "react-icons/fa";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkedAlt,
+} from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 
 const ContactList = () => {
@@ -23,6 +28,12 @@ const ContactList = () => {
       <div className="flex flex-wrap gap-3 items-center">
         <FaGithub size={30} />
         <Link href="https://github.com/faturrumahan" target="_blank">
+          faturrumahan
+        </Link>
+      </div>
+      <div className="flex flex-wrap gap-3 items-center">
+        <FaInstagram size={30} />
+        <Link href="https://www.instagram.com/faturrumahan" target="_blank">
           faturrumahan
         </Link>
       </div>
