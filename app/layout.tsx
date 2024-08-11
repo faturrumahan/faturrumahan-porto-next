@@ -3,6 +3,7 @@ import { Outfit as FontSans } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
+import ContainerProvider from "@/components/organism/ContainerProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <ContainerProvider>{children}</ContainerProvider>
       </body>
     </html>
   );
