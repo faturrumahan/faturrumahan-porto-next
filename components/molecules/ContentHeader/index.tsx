@@ -6,6 +6,10 @@ interface IMenuItem {
   contentTitle: string;
 }
 
+interface IContentHeaderProps {
+  selectedContent: (contentName: string) => void;
+}
+
 const menu: IMenuItem[] = [
   {
     name: "About",
@@ -25,11 +29,12 @@ const menu: IMenuItem[] = [
   },
 ];
 
-const ContentHeader = () => {
+const ContentHeader: React.FC<IContentHeaderProps> = ({ selectedContent }) => {
   const [selectedMenu, setSelectedMenu] = useState(menu[0]);
 
   const menuHandler = (item: IMenuItem) => {
     setSelectedMenu(item);
+    selectedContent(item.name);
   };
   return (
     <div className="flex w-full justify-between items-end">
