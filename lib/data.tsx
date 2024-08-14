@@ -67,70 +67,74 @@ export const todoItems = [
 
 export const experienceItems = [
   {
-    title: "Student intern",
+    title: "Staff Officer",
     status: "Internship",
-    date: [
-      {
-        start: "August 2022",
-        end: "September 2022",
-      },
-    ],
-    description: "",
+    company: "Yogyakarta Cryptography Museum",
+    date: {
+      start: "August 2022",
+      end: "September 2022",
+    },
+
+    description:
+      "Developed a web-based application specifically designed to record museum visitor data. In addition to this, I regularly reported on the progress of the project through weekly updates and provided assistance to the museum's layout staff when needed",
   },
   {
     title: "Front-end developer",
     status: "Internship",
-    date: [
-      {
-        start: "February 2024",
-        end: "June 2024",
-      },
-    ],
-    description: "",
+    company: "Berijalan",
+    date: {
+      start: "February 2024",
+      end: "June 2024",
+    },
+
+    description:
+      "Participated in training programs focused on React, DotNet, and Laravel. Additionally, I built and enhanced the Board Leader application using the Laravel framework. Furthermore, I developed new features for the Asset Audit application using the Next.js framework",
   },
   {
     title: "Front-end developer",
     status: "Freelance",
-    date: [
-      {
-        start: "June 2024",
-        end: "July 2024",
-      },
-    ],
-    description: "",
+    company: "Berijalan",
+    date: {
+      start: "June 2024",
+      end: "July 2024",
+    },
+
+    description:
+      "Performed bug fixing and developed new features for the mobile application using the React Native framework",
   },
   {
     title: "Front-end developer",
     status: "Contract",
-    date: [
-      {
-        start: "July 2024",
-        end: "",
-      },
-    ],
-    description: "",
+    company: "Berijalan",
+    date: {
+      start: "July 2024",
+      end: null,
+    },
+
+    description:
+      "Participated in advanced-level React training and studied NestJS. Additionally, I worked on enhancing and fixing bugs in some web application using the Laravel framework",
   },
 ];
 
 export const skillItems = [
   {
     title: "Next Js",
-    level: 86,
-    image: "",
+    level: "87%",
+    image: Images.NEXT_LOGO,
   },
   {
     title: "React Native",
-    level: 80,
-    image: "",
+    level: "81%",
+    image: Images.REACT_LOGO,
   },
   {
     title: "Nest Js",
-    level: 30,
-    image: "",
+    level: "33%",
+    image: Images.NEST_LOGO,
   },
   {
     title: "Laravel",
-    level: 50,
-    image: "",
+    level: "51%",
+    image: Images.LARAVEL_LOGO,
   },
 ];
