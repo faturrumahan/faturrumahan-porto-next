@@ -26,8 +26,8 @@ const ProfileOverview = () => {
         front-end web developer. I have built several personal portfolio
         projects using various programming languages. I enjoy learning new
         technologies and working both in teams and independently. Currently,
-        I`&apos;`m a front-end developer at Berijalan, and I`&apos;`ve also
-        learned React Native, Next.js, Laravel, and NestJS.
+        I&apos;m a front-end developer at Berijalan, and I&apos;ve also learned
+        React Native, Next.js, Laravel, and NestJS.
       </p>
     </>
   );
