@@ -12,5 +12,6 @@ export default function useFetchProjects({
   return useQuery({
     queryKey: [query],
     queryFn: () => satellite.get(path).then((response) => response.data),
+    retry: 10,
   });
 }
