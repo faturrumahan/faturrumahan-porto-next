@@ -104,9 +104,13 @@ const About = () => {
                   <h5 className="text-lg font-semibold">{item.title}</h5>
                   <div className="w-full bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-green-600 h-2.5 rounded-full"
+                      className="bg-green-600 h-3 rounded-full text-white"
                       style={{ width: item.level }}
-                    ></div>
+                    >
+                      <p className="flex items-center text-xs leading-none justify-center">
+                        {item.level}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

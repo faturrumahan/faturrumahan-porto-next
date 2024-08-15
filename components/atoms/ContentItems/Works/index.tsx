@@ -2,6 +2,7 @@
 import useFetchProjects from "@/utils/hooks/useFetchProjects";
 import React, { useState } from "react";
 import ProjectLists from "../../ProjectLists";
+import { PulseLoader } from "react-spinners";
 
 const Works = () => {
   const {
@@ -22,34 +23,36 @@ const Works = () => {
     setFilter(menu);
   };
 
+  if (loadCategory && loadProjects)
+    return (
+      <div>
+        <PulseLoader />
+      </div>
+    );
+  if (errCategory && errProjects) return <p>Something just error...</p>;
+
   return (
     <>
       <section id="works-header" className="flex gap-10">
-        {loadCategory && <p>Loading...</p>}
-        {errCategory && <p>Something just error...</p>}
-        {category && (
-          <>
-            <h2
-              className={`cursor-pointer hover:underline underline-offset-4 ${
-                filter === "" && "underline"
-              }`}
-              onClick={() => filterHandler("")}
-            >
-              All
-            </h2>
-            {category.map((cat: any) => (
-              <h2
-                key={cat.id + cat.name}
-                className={`cursor-pointer hover:underline underline-offset-4 ${
-                  cat.id === filter && "underline"
-                }`}
-                onClick={() => filterHandler(cat.id)}
-              >
-                {cat.name}
-              </h2>
-            ))}
-          </>
-        )}
+        <h2
+          className={`cursor-pointer hover:underline underline-offset-4 ${
+            filter === "" && "underline"
+          }`}
+          onClick={() => filterHandler("")}
+        >
+          All
+        </h2>
+        {category.map((cat: any) => (
+          <h2
+            key={cat.id + cat.name}
+            className={`cursor-pointer hover:underline underline-offset-4 ${
+              cat.id === filter && "underline"
+            }`}
+            onClick={() => filterHandler(cat.id)}
+          >
+            {cat.name}
+          </h2>
+        ))}
       </section>
       <section id="works-list" className="mt-5">
         <ProjectLists

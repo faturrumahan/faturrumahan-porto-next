@@ -2,7 +2,7 @@ import axios from "axios";
 
 const satellite = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  timeout: 5000, // in millisecond
+  // timeout: 5000, // in millisecond
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",

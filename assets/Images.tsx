@@ -7,6 +7,7 @@ const Images = {
   NEST_LOGO: "/images/nestjs.png",
   REACT_LOGO: "/images/react.png",
   LARAVEL_LOGO: "/images/laravel.png",
+  CONSTRUCTION: "/images/construction.png",
 };
 
 export default Images;
