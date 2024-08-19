@@ -5,8 +5,11 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="flex flex-col gap-9 text-lg">
-      <section id="about-me" className="pr-36 text-justify flex flex-col gap-2">
+    <div className="flex flex-col gap-4 lg:gap-9 text-lg">
+      <section
+        id="about-me"
+        className="max-lg:hidden pr-36 text-justify flex flex-col gap-2"
+      >
         <p>
           I am a recent graduate with a degree in Informatics, committed to
           building a successful career as a front-end web developer. Throughout
@@ -37,34 +40,43 @@ const About = () => {
           complex challenges and contribute effectively to innovative projects.
         </p>
       </section>
+      <section id="about-me" className="text-center text-sm lg:hidden">
+        <p>
+          I am a recent Informatics graduate aiming to advance my career as a
+          front-end web developer. I have built several personal portfolio
+          projects using various programming languages. I enjoy learning new
+          technologies and working both in teams and independently. Currently,
+          I&apos;m a front-end developer at Berijalan, and I&apos;ve also
+          learned React Native, Next.js, Laravel, and NestJS.
+        </p>
+      </section>
       <section id="todo" className="flex flex-col gap-3">
-        <h3 className="font-bold text-2xl">What usually I do for living</h3>
-        <div className="grid grid-cols-3 gap-3">
+        <h3 className="font-bold text-2xl max-lg:text-center">
+          What usually I do for living
+        </h3>
+        <div className="grid lg:grid-cols-3 grid-rows gap-3">
           {todoItems.map((item, index) => (
-            <Card
-              key={index + item.title}
-              className="p-6 bg-opacity-60 backdrop-filter backdrop-blur-lg"
-            >
-              <div className="flex gap-7">
+            <Card key={index + item.title} className="p-6">
+              <div className="flex gap-7 items-center">
                 <Image
                   src={item.image}
                   alt={item.title + "logo"}
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-16 h-fit"
+                  className="w-10 lg:w-16 h-fit"
                 />
                 <div>
-                  <h5 className="font-bold">{item.title}</h5>
-                  <p className="text-sm">{item.description}</p>
+                  <h5 className="max-lg:text-sm font-bold">{item.title}</h5>
+                  <p className="text-sm max-lg:hidden">{item.description}</p>
                 </div>
               </div>
             </Card>
           ))}
         </div>
       </section>
-      <div className="grid grid-cols-2 gap-5">
-        <section id="experience">
+      <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-2 gap-5">
+        <section id="experience" className="max-lg:hidden">
           <h3 className="font-bold text-2xl mb-3">Experiences</h3>
           <ol className="relative border-s border-gray-300">
             {experienceItems.toReversed().map((item, index) => (
@@ -88,10 +100,12 @@ const About = () => {
           </ol>
         </section>
         <section id="skill">
-          <h3 className="font-bold text-2xl mb-3">Skills Set</h3>
+          <h3 className="font-bold text-2xl mb-3 max-lg:text-center">
+            Skills Set
+          </h3>
           <div className="flex flex-col gap-5">
             {skillItems.map((item, index) => (
-              <div key={index} className="flex gap-5">
+              <div key={index} className="flex gap-5 items-center">
                 <Image
                   src={item.image}
                   alt={item.title + "logo"}
@@ -115,7 +129,7 @@ const About = () => {
                 </div>
               </div>
             ))}
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 max-lg:text-center">
               Disclaimer: The confidence levels indicated here reflect my
               proficiency in various programming languages. You are welcome to
               assess my skill level based on my recent work and projects.

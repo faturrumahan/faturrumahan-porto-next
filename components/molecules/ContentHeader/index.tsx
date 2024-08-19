@@ -37,10 +37,12 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ selectedContent }) => {
     selectedContent(item.name);
   };
   return (
-    <div className="flex w-full justify-between items-end">
-      <h1 className="font-bold text-3xl ml-7">{selectedMenu.contentTitle}</h1>
-      <div className="px-10 py-5 rounded-bl-lg rounded-tr bg-stone-300">
-        <ul className="flex gap-10 text-lg">
+    <div className="flex max-lg:flex-wrap-reverse w-full justify-center lg:justify-between lg:items-end">
+      <h1 className="font-bold text-3xl lg:ml-7 max-lg:mt-5">
+        {selectedMenu.contentTitle}
+      </h1>
+      <div className="max-lg:w-full p-5 lg:px-10 lg:py-5 lg:rounded-bl-lg lg:rounded-tr bg-stone-300">
+        <ul className="flex lg:gap-10 text-lg max-lg:justify-between">
           {menu.map((item, index) => (
             <li
               className="hover:cursor-pointer"

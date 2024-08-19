@@ -20,15 +20,17 @@ const ProfileOverview = () => {
       <h2 className="rounded-md bg-stone-200 px-3 py-2 font-md shadow-sm">
         Front-end Developer
       </h2>
-      <hr className="w-full h-[1.5px] bg-stone-200 rounded" />
-      <p className="text-center">
-        I am a recent Informatics graduate aiming to advance my career as a
-        front-end web developer. I have built several personal portfolio
-        projects using various programming languages. I enjoy learning new
-        technologies and working both in teams and independently. Currently,
-        I&apos;m a front-end developer at Berijalan, and I&apos;ve also learned
-        React Native, Next.js, Laravel, and NestJS.
-      </p>
+      <div className="max-lg:hidden">
+        <hr className="w-full h-[1.5px] bg-stone-200 rounded" />
+        <p className="text-center mt-5">
+          I am a recent Informatics graduate aiming to advance my career as a
+          front-end web developer. I have built several personal portfolio
+          projects using various programming languages. I enjoy learning new
+          technologies and working both in teams and independently. Currently,
+          I&apos;m a front-end developer at Berijalan, and I&apos;ve also
+          learned React Native, Next.js, Laravel, and NestJS.
+        </p>
+      </div>
     </>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -15,10 +16,10 @@ const DetailProjectBar = ({ data }: { data: any }) => {
   };
   return (
     <div className="bg-stone-100 rounded-lg flex-1 shadow-md overflow-y-auto ">
-      <div className="px-7 py-10 flex flex-col gap-5">
-        <div className="flex gap-4 items-center">
+      <div className="p-5 lg:px-7 lg:py-10 flex flex-col gap-5">
+        <div className="flex gap-4 items-center max-lg:justify-center">
           <h1 className="font-bold text-3xl">{data.title}</h1>
-          <Link href={data.url_path} target="_blank">
+          <Link href={data.url_path} target="_blank" className="max-lg:hidden">
             <FaExternalLinkAlt className="text-blue-600" size={25} />
           </Link>
         </div>
@@ -31,7 +32,7 @@ const DetailProjectBar = ({ data }: { data: any }) => {
             sizes="100vw"
             className="w-full h-fit rounded mb-2"
           />
-          <div className="flex justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-1 lg:gap-3">
             {images.map((image: string, index: number) => (
               <Image
                 key={index}
@@ -40,20 +41,28 @@ const DetailProjectBar = ({ data }: { data: any }) => {
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-28 h-fit rounded cursor-pointer transition duration-500 hover:translate-y-2"
+                className="w-16 lg:w-28 h-fit rounded cursor-pointer transition duration-500 hover:translate-y-2"
                 onClick={selectImageHandler(image)}
               />
             ))}
           </div>
         </section>
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-lg:justify-center">
           {tags.map((tag: string) => (
-            <p key={tag} className="py-2 px-3 bg-stone-200 rounded text-sm">
+            <p
+              key={tag}
+              className="py-2 px-3 bg-stone-200 rounded text-xs lg:text-sm"
+            >
               {tag}
             </p>
           ))}
         </div>
-        <p className="text-lg w-3/4">{data.description}</p>
+        <p className="max-lg:text-center lg:text-lg lg:w-3/4">
+          {data.description}
+        </p>
+        <Link href={data.url_path} target="_blank" className="block lg:hidden">
+          <Button className="w-full">Visit Project</Button>
+        </Link>
       </div>
     </div>
   );

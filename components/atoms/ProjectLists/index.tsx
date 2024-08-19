@@ -38,7 +38,7 @@ const ProjectLists = ({
   }, [projects, filter]);
 
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
       {filteredProjects.map((project: any) => {
         const image = project.image_path.split(",");
         const tag = project.tag.split(",");
@@ -50,8 +50,12 @@ const ProjectLists = ({
           >
             <Card>
               <CardHeader>
-                <CardTitle className="truncate">{project.title}</CardTitle>
-                <CardDescription>{project.tag}</CardDescription>
+                <CardTitle className="truncate max-lg:text-sm">
+                  {project.title}
+                </CardTitle>
+                <CardDescription className="max-lg:hidden">
+                  {project.tag}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Image
@@ -63,10 +67,12 @@ const ProjectLists = ({
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-40 w-full rounded object-cover"
+                  className="h-12 lg:h-40 w-full rounded object-cover"
                   alt={project.title}
                 ></Image>
-                <p className="line-clamp-3 mt-2">{project.description}</p>
+                <p className="line-clamp-3 mt-2 max-md:hidden">
+                  {project.description}
+                </p>
               </CardContent>
             </Card>
           </Link>

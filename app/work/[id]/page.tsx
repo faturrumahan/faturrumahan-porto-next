@@ -34,10 +34,15 @@ const DetailWorkPage = async ({ params }: { params: any }) => {
   if (!data) return <PulseLoader />;
 
   return (
-    <main className="flex gap-5 p-10 bg-stone-200 min-h-screen">
-      <ProfileBar />
-      <DetailProjectBar data={data} />
-    </main>
+    <>
+      <main className="max-lg:hidden flex gap-5 p-10 bg-stone-200 min-h-screen">
+        <ProfileBar />
+        <DetailProjectBar data={data} />
+      </main>
+      <main className="p-5 min-h-screen bg-stone-200 lg:hidden">
+        <DetailProjectBar data={data} />
+      </main>
+    </>
   );
 };
 

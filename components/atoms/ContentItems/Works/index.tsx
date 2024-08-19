@@ -25,7 +25,7 @@ const Works = () => {
 
   if (loadCategory && loadProjects)
     return (
-      <div>
+      <div className="flex max-lg:justify-center">
         <PulseLoader />
       </div>
     );
@@ -33,7 +33,10 @@ const Works = () => {
 
   return (
     <>
-      <section id="works-header" className="flex gap-10">
+      <section
+        id="works-header"
+        className="flex lg:gap-10 max-lg:justify-between"
+      >
         <h2
           className={`cursor-pointer hover:underline underline-offset-4 ${
             filter === "" && "underline"

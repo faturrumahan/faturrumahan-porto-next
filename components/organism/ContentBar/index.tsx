@@ -9,9 +9,9 @@ const ContentBar = () => {
     setContent(selectedContent);
   };
   return (
-    <div className="bg-stone-100 rounded-lg flex-1 shadow-md overflow-y-auto ">
+    <div className="bg-stone-100 rounded-lg lg:flex-1 shadow-md overflow-y-auto ">
       <ContentHeader selectedContent={onSelectContent} />
-      <div className="px-7 py-10">
+      <div className="p-5 lg:px-7 lg:py-10">
         <ContentBody content={content} />
       </div>
     </div>
