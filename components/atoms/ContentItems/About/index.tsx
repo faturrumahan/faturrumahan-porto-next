@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { experienceItems, skillItems, todoItems } from "@/lib/data";
 import Image from "next/image";
 import React from "react";
+import ExperienceLists from "../../ExperienceLists";
+import SkillLists from "../../SkillLists";
 
 const About = () => {
   return (
@@ -75,66 +77,12 @@ const About = () => {
           ))}
         </div>
       </section>
-      <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-2 gap-5">
-        <section id="experience" className="max-lg:hidden">
-          <h3 className="font-bold text-2xl mb-3">Experiences</h3>
-          <ol className="relative border-s border-gray-300">
-            {experienceItems.toReversed().map((item, index) => (
-              <li key={index + item.title} className="ms-4">
-                <div className="absolute w-3 h-3 bg-gray-300 rounded-full mt-1.5 -start-1.5 border"></div>
-                <p className="mb-1 text-sm font-normal leading-none text-gray-400">
-                  {item.date.start + " - " + (item.date.end || "Now")}
-                </p>
-                <h3 className="text-lg font-semibold">
-                  {item.title} at {item.company}{" "}
-                  <span className="text-gray-500 text-sm">
-                    {" "}
-                    - {item.status}
-                  </span>
-                </h3>
-                <p className="mb-4 text-base font-normal text-gray-500">
-                  {item.description}
-                </p>
-              </li>
-            ))}
-          </ol>
+      <div className="lg:grid lg:grid-cols-2 gap-5 max-lg:hidden">
+        <section id="experience">
+          <ExperienceLists />
         </section>
         <section id="skill">
-          <h3 className="font-bold text-2xl mb-3 max-lg:text-center">
-            Skills Set
-          </h3>
-          <div className="flex flex-col gap-5">
-            {skillItems.map((item, index) => (
-              <div key={index} className="flex gap-5 items-center">
-                <Image
-                  src={item.image}
-                  alt={item.title + "logo"}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="w-fit h-10"
-                />
-                <div className="w-full">
-                  <h5 className="text-lg font-semibold">{item.title}</h5>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-green-600 h-3 rounded-full text-white"
-                      style={{ width: item.level }}
-                    >
-                      <p className="flex items-center text-xs leading-none justify-center">
-                        {item.level}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <p className="text-sm text-gray-500 max-lg:text-center">
-              Disclaimer: The confidence levels indicated here reflect my
-              proficiency in various programming languages. You are welcome to
-              assess my skill level based on my recent work and projects.
-            </p>
-          </div>
+          <SkillLists />
         </section>
       </div>
     </div>

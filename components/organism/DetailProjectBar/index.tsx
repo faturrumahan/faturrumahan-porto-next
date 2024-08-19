@@ -41,7 +41,9 @@ const DetailProjectBar = ({ data }: { data: any }) => {
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-16 lg:w-28 h-fit rounded cursor-pointer transition duration-500 hover:translate-y-2"
+                className={`w-16 lg:w-28 h-fit rounded cursor-pointer transition duration-500 hover:translate-y-2 ${
+                  image !== selectedImage && "grayscale"
+                }`}
                 onClick={selectImageHandler(image)}
               />
             ))}

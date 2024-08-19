@@ -35,7 +35,7 @@ const Works = () => {
     <>
       <section
         id="works-header"
-        className="flex lg:gap-10 max-lg:justify-between"
+        className="flex md:gap-10 justify-between md:justify-center lg:justify-start"
       >
         <h2
           className={`cursor-pointer hover:underline underline-offset-4 ${

@@ -42,10 +42,12 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({ selectedContent }) => {
         {selectedMenu.contentTitle}
       </h1>
       <div className="max-lg:w-full p-5 lg:px-10 lg:py-5 lg:rounded-bl-lg lg:rounded-tr bg-stone-300">
-        <ul className="flex lg:gap-10 text-lg max-lg:justify-between">
+        <ul className="flex md:gap-10 text-lg max-md:justify-between justify-center">
           {menu.map((item, index) => (
             <li
-              className="hover:cursor-pointer"
+              className={`hover:cursor-pointer ${
+                item.name == "Resume" && "lg:hidden"
+              }`}
               key={index}
               onClick={() => menuHandler(item)}
             >
