@@ -49,15 +49,15 @@ const ProjectLists = ({
             href={`/work/${project.id}`}
           >
             <Card>
-              <CardHeader>
-                <CardTitle className="truncate max-lg:text-sm">
+              <CardHeader className="max-lg:p-2">
+                <CardTitle className="truncate text-sm md:text-base">
                   {project.title}
                 </CardTitle>
                 <CardDescription className="max-lg:hidden">
                   {project.tag}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="max-lg:px-2 max-lg:pb-2">
                 <Image
                   src={
                     image
@@ -67,7 +67,7 @@ const ProjectLists = ({
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-12 lg:h-40 w-full rounded object-cover"
+                  className="h-12 md:h-24 lg:h-40 w-full rounded object-cover"
                   alt={project.title}
                 ></Image>
                 <p className="line-clamp-3 mt-2 max-md:hidden">

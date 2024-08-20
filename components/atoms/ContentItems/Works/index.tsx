@@ -23,13 +23,13 @@ const Works = () => {
     setFilter(menu);
   };
 
-  if (loadCategory && loadProjects)
+  if (loadCategory || loadProjects)
     return (
       <div className="flex max-lg:justify-center">
         <PulseLoader />
       </div>
     );
-  if (errCategory && errProjects) return <p>Something just error...</p>;
+  if (errCategory || errProjects) return <p>Something just error...</p>;
 
   return (
     <>

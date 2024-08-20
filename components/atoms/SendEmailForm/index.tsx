@@ -26,6 +26,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { PacmanLoader } from "react-spinners";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -81,7 +82,7 @@ const SendEmailForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-5"
+          className="w-full space-y-2 lg:space-y-5"
         >
           <div className="flex gap-3">
             <div className="w-full">
@@ -129,15 +130,16 @@ const SendEmailForm = () => {
             )}
           />
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-            Submit
+            {isSubmitting ? <PacmanLoader size={10} /> : "Submit"}
           </Button>
         </form>
       </Form>
+
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
         <AlertDialogTrigger asChild>
           <div className="hidden" />
         </AlertDialogTrigger>
-        <AlertDialogContent className="fixed z-50 flex items-center justify-center bg-black bg-opacity-50 p-0 w-fit h-fit">
+        <AlertDialogContent className="fixed z-50 flex items-center justify-center bg-black bg-opacity-50 p-0 w-fit h-fit border-none">
           <div className="bg-white p-6 rounded-md shadow-lg">
             <AlertDialogHeader>
               <AlertDialogDescription className="text-sm text-gray-600">

@@ -1,10 +1,20 @@
 "use client";
 import ContentBody from "@/components/molecules/ContentBody";
 import ContentHeader from "@/components/molecules/ContentHeader";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ContentBar = () => {
   const [content, setContent] = useState("About");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedContent = sessionStorage.getItem("selectedMenu");
+      if (savedContent) {
+        setContent(JSON.parse(savedContent).name);
+      }
+    }
+  }, []);
+
   const onSelectContent = (selectedContent: string) => {
     setContent(selectedContent);
   };

@@ -53,7 +53,7 @@ const About = () => {
         </p>
       </section>
       <section id="todo" className="flex flex-col gap-3">
-        <h3 className="font-bold text-2xl max-lg:text-center">
+        <h3 className="font-bold text-xl lg:text-2xl max-lg:text-center">
           What usually I do for living
         </h3>
         <div className="grid lg:grid-cols-3 grid-rows gap-3">

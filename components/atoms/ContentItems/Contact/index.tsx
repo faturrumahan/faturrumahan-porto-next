@@ -4,7 +4,7 @@ import Maps from "../../Maps";
 
 const Contact = () => {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-5 lg:gap-10">
       <Maps />
       <SendEmailForm />
     </div>

@@ -5,7 +5,7 @@ import React from "react";
 const SkillLists = () => {
   return (
     <>
-      <h3 className="font-bold text-2xl mb-3">Skills Set</h3>
+      <h3 className="font-bold text-lg lg:text-2xl lg:mb-3">Skills Set</h3>
       <div className="flex flex-col gap-5">
         {skillItems.map((item, index) => (
           <div key={index} className="flex gap-5 items-center">
@@ -18,7 +18,7 @@ const SkillLists = () => {
               className="w-fit h-10"
             />
             <div className="w-full">
-              <h5 className="text-lg font-semibold">{item.title}</h5>
+              <h5 className="lg:text-lg font-semibold">{item.title}</h5>
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-green-600 h-3 rounded-full text-white"
@@ -32,7 +32,7 @@ const SkillLists = () => {
             </div>
           </div>
         ))}
-        <p className="text-sm text-gray-500 max-lg:text-center">
+        <p className="text-xs md:text-sm text-gray-500 max-lg:text-center">
           Disclaimer: The confidence levels indicated here reflect my
           proficiency in various programming languages. You are welcome to
           assess my skill level based on my recent work and projects.
