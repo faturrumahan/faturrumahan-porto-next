@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Outfit as FontSans } from "next/font/google";
 import "./globals.css";
 
@@ -29,7 +30,10 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ContainerProvider>{children}</ContainerProvider>
+        <ContainerProvider>
+          {children}
+          <Analytics />
+        </ContainerProvider>
       </body>
     </html>
   );
