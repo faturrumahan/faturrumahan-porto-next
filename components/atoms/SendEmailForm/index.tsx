@@ -14,11 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import emailjs from "@emailjs/browser";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -27,6 +25,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { PacmanLoader } from "react-spinners";
+import { useSendEmail } from "@/utils/hooks/useSendEmail";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -51,31 +50,26 @@ const SendEmailForm = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { mutate: sendEmail, isError, isSuccess } = useSendEmail();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      setIsSubmitting(true);
-      // Send the validated form data to EmailJS
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
-        {
-          user_name: values.name,
-          user_email: values.email,
-          message: values.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY"
-      );
-      if (result) {
+    setIsSubmitting(true);
+
+    // Call sendEmail and handle success or error within callbacks
+    sendEmail(values, {
+      onSuccess: () => {
         setIsSubmitting(false);
         setIsAlertOpen(true);
         setAlertMessage("Your form has been submitted");
         form.reset();
-      }
-    } catch (error) {
-      setIsSubmitting(false);
-      setIsAlertOpen(true);
-      setAlertMessage("Something went wrong, please try again later");
-    }
+      },
+      onError: (error) => {
+        setIsSubmitting(false);
+        setIsAlertOpen(true);
+        setAlertMessage("Something went wrong, please try again later");
+        console.error("Error sending email:", error);
+      },
+    });
   }
   return (
     <>
@@ -142,6 +136,7 @@ const SendEmailForm = () => {
         <AlertDialogContent className="fixed z-50 flex items-center justify-center bg-black bg-opacity-50 p-0 w-fit h-fit border-none">
           <div className="bg-white p-6 rounded-md shadow-lg">
             <AlertDialogHeader>
+              <AlertDialogTitle className="hidden">hidden</AlertDialogTitle>
               <AlertDialogDescription className="text-sm text-gray-600">
                 {alertMessage}
               </AlertDialogDescription>

@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { experienceItems, skillItems, todoItems } from "@/lib/data";
+import { todoItems } from "@/lib/data";
 import Image from "next/image";
 import React from "react";
 import ExperienceLists from "../../ExperienceLists";
