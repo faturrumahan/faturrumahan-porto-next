@@ -52,7 +52,7 @@ const SendEmailForm = () => {
 
   const { mutate: sendEmail, isError, isSuccess } = useSendEmail();
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
 
     // Call sendEmail and handle success or error within callbacks

@@ -1,3 +1,4 @@
+"use client";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -7,7 +8,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
+import { clearCookie } from "@/utils/Helpers/cookies";
 import React from "react";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -49,6 +50,11 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 const Navbar = () => {
+  const logoutHandler = () => {
+    clearCookie("authToken_faturrumahan");
+    location.reload();
+  };
+
   return (
     <header>
       <nav className="w-full h-16 bg-neutral-700 flex items-center px-10 justify-between">
@@ -73,11 +79,11 @@ const Navbar = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
+              <div className="hover:cursor-pointer" onClick={logoutHandler}>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Logout
                 </NavigationMenuLink>
-              </Link>
+              </div>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
