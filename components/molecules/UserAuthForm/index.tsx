@@ -49,6 +49,7 @@ export function UserAuthForm({ type, className, ...props }: UserAuthFormProps) {
     setIsLoading(true);
     setError("");
     authData.password = encryptAES(authData.password);
+    console.log(authData.password);
 
     try {
       const response = await loginApi(authData);
