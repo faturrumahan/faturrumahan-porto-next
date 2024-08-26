@@ -8,8 +8,10 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { logout } from "@/storages/authSlice";
 import { clearCookie } from "@/utils/Helpers/cookies";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -50,7 +52,10 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const logoutHandler = () => {
+    dispatch(logout());
     clearCookie("authToken_faturrumahan");
     location.reload();
   };

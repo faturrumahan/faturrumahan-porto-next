@@ -22,6 +22,8 @@ import loginApi from "@/utils/api/loginApi";
 import { setCookie } from "@/utils/Helpers/cookies";
 import { useRouter } from "next/navigation";
 import { encryptAES } from "@/utils/Helpers/CryptoJS";
+import { useDispatch } from "react-redux";
+import { login } from "@/storages/authSlice";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   type: string;
@@ -34,6 +36,7 @@ const formSchema = z.object({
 
 export function UserAuthForm({ type, className, ...props }: UserAuthFormProps) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState("");
 
@@ -53,7 +56,8 @@ export function UserAuthForm({ type, className, ...props }: UserAuthFormProps) {
     try {
       const response = await loginApi(authData);
       setCookie("authToken_faturrumahan", response.token, { expires: 7 });
-      router.push("/dashboard");
+      dispatch(login({ token: response.token, user: response.user }));
+      location.reload();
     } catch (err) {
       setError("Login failed. Please check your credentials.");
     } finally {
