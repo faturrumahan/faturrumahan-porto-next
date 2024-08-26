@@ -9,9 +9,10 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { logout } from "@/storages/authSlice";
+import { RootState } from "@/storages/store";
 import { clearCookie } from "@/utils/Helpers/cookies";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -53,6 +54,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -63,7 +65,9 @@ const Navbar = () => {
   return (
     <header>
       <nav className="w-full h-16 bg-neutral-700 flex items-center px-10 justify-between">
-        <div>Logo</div>
+        <div className="text-white">
+          Welcome, {auth.user && auth.user.username}
+        </div>
         <NavigationMenu>
           <NavigationMenuList className="gap-2">
             <NavigationMenuItem>
