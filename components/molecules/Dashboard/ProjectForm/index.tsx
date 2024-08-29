@@ -57,7 +57,7 @@ const formSchema = z.object({
 const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [files, setFiles] = useState<File[] | null>([]);
 
@@ -91,7 +91,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     query: "categoryListAddProject",
   });
 
-  const handleAddTag = (field) => {
+  const handleAddTag = (field: any) => {
     if (inputValue.trim()) {
       const newTags = [...tags, inputValue.trim()];
       setTags(newTags);
@@ -100,7 +100,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     }
   };
 
-  const handleTagKeyDown = (e, field) => {
+  const handleTagKeyDown = (e: any, field: any) => {
     if (e.key === " ") {
       e.preventDefault();
       if (inputValue.trim()) {
@@ -118,7 +118,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     }
   };
 
-  const handleInputTagChange = (e, field) => {
+  const handleInputTagChange = (e: any, field: any) => {
     setInputValue(e.target.value);
     field.onChange(tags); // Keep the form field value in sync with tags
   };
@@ -132,7 +132,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     formData.append("title", projectData.title);
     formData.append("description", projectData.description);
     formData.append("category", String(projectData.category));
-    formData.append("tag", projectData.tag);
+    formData.append("tag", projectData.tag.toString());
     formData.append("url_path", projectData.url_path);
 
     for (let i = 0; i < projectData.files.length; i++) {
@@ -266,7 +266,9 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                 <FormControl>
                   <div
                     className="flex flex-wrap items-center gap-1 px-4 py-2 border rounded-md text-sm placeholder:text-muted-foreground"
-                    onClick={() => document.getElementById("tag-input").focus()}
+                    onClick={() =>
+                      document.getElementById("tag-input")?.focus()
+                    }
                   >
                     {tags.map((tag, index) => (
                       <span
