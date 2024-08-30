@@ -6,8 +6,9 @@ import React from "react";
 const EditProjectContainer = (id: any) => {
   const { isLoading, error, data } = useFetchProjects({
     path: "/projects/" + id.id,
-    query: "projectDetail",
+    query: "projectDetail" + id.id,
   });
+
   if (isLoading) {
     return <div>loading</div>;
   }

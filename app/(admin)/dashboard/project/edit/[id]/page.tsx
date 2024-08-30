@@ -2,7 +2,13 @@ import ProjectForm from "@/components/molecules/Dashboard/ProjectForm";
 import EditProjectContainer from "@/components/organism/EditProjectContainer";
 import React from "react";
 
-const EditProject = ({ params }: { params: any }) => {
+const EditProject = ({
+  params,
+}: {
+  params: {
+    id: number;
+  };
+}) => {
   const { id } = params;
   return (
     <div className="p-10">

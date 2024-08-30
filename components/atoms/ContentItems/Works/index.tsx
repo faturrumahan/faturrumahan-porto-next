@@ -3,6 +3,7 @@ import useFetchProjects from "@/utils/hooks/useFetchProjects";
 import React, { useState } from "react";
 import ProjectLists from "../../ProjectLists";
 import { PulseLoader } from "react-spinners";
+import { ICategory } from "@/interfaces";
 
 const Works = () => {
   const {
@@ -45,13 +46,13 @@ const Works = () => {
         >
           All
         </h2>
-        {category.map((cat: any) => (
+        {category.map((cat: ICategory) => (
           <h2
             key={cat.id + cat.name}
             className={`cursor-pointer hover:underline underline-offset-4 ${
-              cat.id === filter && "underline"
+              (cat.id as unknown as string) === filter && "underline"
             }`}
-            onClick={() => filterHandler(cat.id)}
+            onClick={() => filterHandler(cat.id as unknown as string)}
           >
             {cat.name}
           </h2>

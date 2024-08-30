@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import satellite from "@/services/satellite";
 
-const updateProjectApi = async (projectData: any, id: number) => {
+const updateProjectApi = async (projectData: FormData, id: number) => {
   const token = Cookies.get("authToken_faturrumahan");
   const response = await satellite.patch("/projects/" + id, projectData, {
     headers: {

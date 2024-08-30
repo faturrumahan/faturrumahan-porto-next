@@ -1,17 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { IProject } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-const DetailProjectBar = ({ data }: { data: any }) => {
+const DetailProjectBar = ({ data }: { data: IProject }) => {
   const images = data.image_path.split(",");
   const tags = data.tag.split(",");
 
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
-  const selectImageHandler = (image: string) => (event: any) => {
+  const selectImageHandler = (image: string) => () => {
     setSelectedImage(image);
   };
   return (

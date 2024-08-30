@@ -42,6 +42,7 @@ import {
 import Image from "next/image";
 import addProjectApi from "@/utils/api/addProjectApi";
 import updateProjectApi from "@/utils/api/updateProjectApi";
+import { ICategory } from "@/interfaces";
 
 const createFormSchema = (mode: string = "") => {
   return z.object({
@@ -120,7 +121,10 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     }
   };
 
-  const handleTagKeyDown = (e: any, field: any) => {
+  const handleTagKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any
+  ) => {
     if (e.key === " ") {
       e.preventDefault();
       if (inputValue.trim()) {
@@ -138,7 +142,10 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     }
   };
 
-  const handleInputTagChange = (e: any, field: any) => {
+  const handleInputTagChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: any
+  ) => {
     setInputValue(e.target.value);
     field.onChange(tags); // Keep the form field value in sync with tags
   };
@@ -228,7 +235,8 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                       >
                         {field.value
                           ? category?.find(
-                              (category: any) => category.id === field.value
+                              (category: ICategory) =>
+                                category.id === field.value
                             )?.name
                           : "Select category..."}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -246,10 +254,10 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                             <>
                               <CommandEmpty>No category found.</CommandEmpty>
                               <CommandGroup>
-                                {category.map((category: any) => (
+                                {category.map((category: ICategory) => (
                                   <CommandItem
                                     key={category.name + category.id}
-                                    value={category.id}
+                                    value={category.id as unknown as string}
                                     onSelect={() => {
                                       field.onChange(
                                         category.id === field.value

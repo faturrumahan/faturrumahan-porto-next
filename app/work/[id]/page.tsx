@@ -27,7 +27,13 @@ async function getDetailProject(id: string) {
   return response.data.data;
 }
 
-const DetailWorkPage = async ({ params }: { params: any }) => {
+const DetailWorkPage = async ({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) => {
   const { id } = params;
   const data = await getDetailProject(id);
 
