@@ -27,7 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import useFetchProjects from "@/utils/hooks/useFetchProjects";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
@@ -41,23 +41,42 @@ import {
 } from "@/components/ui/extension/file-uploader";
 import Image from "next/image";
 import addProjectApi from "@/utils/api/addProjectApi";
+import updateProjectApi from "@/utils/api/updateProjectApi";
 
-const formSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z
-    .string()
-    .min(10, "Description required minumum 10 characters")
-    .max(500, "Maximum description is 500 characters"),
-  category: z.number().min(1, "Category is required"),
-  tag: z.union([z.string(), z.array(z.string())]),
-  url_path: z.string().url(),
-  files: z.array(z.any()).min(1, "Images is required"),
-});
+const createFormSchema = (mode: string = "") => {
+  return z.object({
+    title: z.string().min(1, "Title is required"),
+    description: z
+      .string()
+      .min(10, "Description required minumum 10 characters")
+      .max(1000, "Maximum description is 500 characters"),
+    category: z.number().min(1, "Category is required"),
+    tag: z.union([z.string(), z.array(z.string())]),
+    url_path: z.string().url(),
+    files: z
+      .array(
+        z
+          .any()
+          .refine((file) => file?.size <= 5000000, `Max image size is 5MB.`)
+          .refine(
+            (file) =>
+              ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+                file?.type
+              ),
+            "Only .jpg, .jpeg, .png and .webp formats are supported."
+          )
+      )
+      .min(mode === "edit" ? 0 : 1, "Image is required")
+      .max(4, "Maximum image is 4"),
+  });
+};
 
 const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(
+    data?.tag.split(",").map((item: string) => item.trim()) || []
+  );
   const [inputValue, setInputValue] = useState("");
   const [files, setFiles] = useState<File[] | null>([]);
 
@@ -70,14 +89,15 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     maxSize: 3 * 1024 * 1024,
   } satisfies DropzoneOptions;
 
+  const formSchema = createFormSchema(mode);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      category: 0,
-      tag: "",
-      url_path: "",
+      title: data?.title || "",
+      description: data?.description || "",
+      category: data?.category || 0,
+      tag: data?.tag.split(",").map((item: string) => item.trim()) || "",
+      url_path: data?.url_path || "",
       files: [],
     },
   });
@@ -142,7 +162,12 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     // console.log(...formData);
 
     try {
-      const response = await addProjectApi(formData);
+      let response;
+      if (mode == "edit") {
+        response = await updateProjectApi(formData, data?.id);
+      } else {
+        response = await addProjectApi(formData);
+      }
       if (response) {
         window.location.replace("/dashboard/project");
       }
@@ -202,7 +227,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                         className="w-full justify-between"
                       >
                         {field.value
-                          ? category.find(
+                          ? category?.find(
                               (category: any) => category.id === field.value
                             )?.name
                           : "Select category..."}
@@ -319,7 +344,6 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                   <FileUploader
                     value={field.value}
                     onValueChange={(e) => {
-                      console.log(e);
                       setFiles(e);
                       field.onChange(e);
                     }}
