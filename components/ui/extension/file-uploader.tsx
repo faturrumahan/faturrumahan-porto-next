@@ -263,7 +263,7 @@ export const FileUploaderContent = forwardRef<
 
   return (
     <div
-      className={cn("w-full px-1")}
+      className={cn("w-full px-0")}
       ref={containerRef}
       // eslint-disable-next-line jsx-a11y/aria-props
       aria-description="content file holder"

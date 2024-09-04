@@ -26,8 +26,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import useFetchProjects from "@/utils/hooks/useFetchProjects";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { Check, ChevronsUpDown, Trash2 } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
@@ -43,6 +43,12 @@ import Image from "next/image";
 import addProjectApi from "@/utils/api/addProjectApi";
 import updateProjectApi from "@/utils/api/updateProjectApi";
 import { ICategory } from "@/interfaces";
+import { useRouter } from "next/navigation";
+import OldImages from "@/components/atoms/OldImages";
+
+export type OldImageRefType = {
+  handleOldImageDelete: (imagePath: string, deleteId: string) => void;
+};
 
 const createFormSchema = (mode: string = "") => {
   return z.object({
@@ -73,6 +79,7 @@ const createFormSchema = (mode: string = "") => {
 };
 
 const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [tags, setTags] = useState<string[]>(
@@ -80,6 +87,13 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
   );
   const [inputValue, setInputValue] = useState("");
   const [files, setFiles] = useState<File[] | null>([]);
+  const [oldImages, setOldImages] = useState<string[]>([]);
+  const [deletedImagePath, setDeletedImagePath] = useState<string[]>([]);
+  const [deletedImageId, setDeletedImageId] = useState<string[]>([]);
+
+  const oldImageRef = useRef<OldImageRefType>(null);
+
+  // console.log(deletedImagePath, deletedImageId);
 
   const dropzone = {
     accept: {
@@ -150,6 +164,25 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
     field.onChange(tags); // Keep the form field value in sync with tags
   };
 
+  const handleOldImageDelete = (imagePath: string, deleteId: string) => {
+    setDeletedImagePath((prev) => [...prev, imagePath]);
+    setDeletedImageId((prev) => [...prev, deleteId]);
+  };
+
+  useEffect(() => {
+    const oldImagesArr = data?.image_path.split(",");
+    setOldImages(oldImagesArr);
+  }, [data]);
+
+  useEffect(() => {
+    const oldImagesArr = data?.image_path.split(",");
+    setOldImages(
+      oldImagesArr?.filter(
+        (image: string) => image && !deletedImagePath.includes(image)
+      )
+    );
+  }, [deletedImagePath, data]);
+
   async function onSubmit(projectData: z.infer<typeof formSchema>) {
     setIsLoading(true);
     // console.log(projectData);
@@ -166,6 +199,13 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
       formData.append("files", projectData.files[i]);
     }
 
+    if (mode == "edit") {
+      formData.append("image_path", data.image_path);
+      formData.append("image_delete_id", data.image_delete_id);
+      formData.append("deleted_image_path", deletedImagePath.join(","));
+      formData.append("in_image_delete_id", deletedImageId.join(","));
+    }
+
     // console.log(...formData);
 
     try {
@@ -176,7 +216,8 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
         response = await addProjectApi(formData);
       }
       if (response) {
-        window.location.replace("/dashboard/project");
+        // window.location.replace("/dashboard/project");
+        router.push("/dashboard/project");
       }
     } catch (err) {
       console.error(err);
@@ -210,7 +251,7 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                 <FormControl>
                   <Textarea
                     placeholder="type something that explain your catchy project"
-                    className="h-15"
+                    className="h-28"
                     {...field}
                   />
                 </FormControl>
@@ -362,7 +403,40 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                         <p className="text-gray-400">Drop files here</p>
                       </div>
                     </FileInput>
-                    <FileUploaderContent className="flex items-center flex-row gap-2">
+                    <FileUploaderContent
+                      className={`flex items-center flex-row gap-2 ${
+                        files?.length == 0 && "mt-2"
+                      }`}
+                    >
+                      {/* if the user update item, it will appear old images */}
+                      {mode == "edit" &&
+                        (() => {
+                          const deletedImagesArray =
+                            data.image_delete_id.split(",");
+
+                          return oldImages.map(
+                            (filePath: string, i: number) => (
+                              <OldImages
+                                key={i}
+                                index={i}
+                                className="size-20 p-0 rounded-md overflow-hidden"
+                                aria-roledescription={`Image ${i + 1}`}
+                                filePath={filePath}
+                                deleteImageId={deletedImagesArray[i]}
+                                ref={oldImageRef}
+                                onDelete={handleOldImageDelete}
+                              >
+                                <Image
+                                  src={filePath}
+                                  alt={`Image ${i + 1}`}
+                                  height={80}
+                                  width={80}
+                                  className="size-20 p-0"
+                                />
+                              </OldImages>
+                            )
+                          );
+                        })()}
                       {files?.map((file, i) => (
                         <FileUploaderItem
                           key={i}
@@ -384,6 +458,11 @@ const ProjectForm = ({ mode, data }: { mode?: string; data?: any }) => {
                     </FileUploaderContent>
                   </FileUploader>
                 </FormControl>
+                {mode == "edit" && (
+                  <p className="text-xs text-gray-400 max-md:text-center">
+                    Upload new images if you wanna change old one
+                  </p>
+                )}
                 <FormMessage />
               </FormItem>
             )}
