@@ -72,6 +72,7 @@ const ProjectLists = ({
               <Link
                 className="hover: cursor-pointer"
                 href={`/work/${project.id}`}
+                prefetch
               >
                 <Card>
                   <CardHeader className="max-lg:p-2">
