@@ -31,14 +31,14 @@ const Works = () => {
       <div className="flex flex-col gap-4 max-lg:justify-center">
         <div className="flex gap-4">
           {Array(4)
-            .fill()
+            .fill(null)
             .map((_, index) => (
               <TextSkeleton key={index} />
             ))}
         </div>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {Array(8)
-            .fill()
+            .fill(null)
             .map((_, index) => (
               <ProjectCardSkeleton key={index} />
             ))}
