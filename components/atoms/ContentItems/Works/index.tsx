@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import ProjectLists from "../../ProjectLists";
 import { PulseLoader } from "react-spinners";
 import { ICategory } from "@/interfaces";
+import ProjectCardSkeleton from "../../Skeleton/ProjectCardSkeleton";
+import TextSkeleton from "../../Skeleton/TextSkeleton";
 
 const Works = () => {
   const {
@@ -26,8 +28,21 @@ const Works = () => {
 
   if (loadCategory || loadProjects)
     return (
-      <div className="flex max-lg:justify-center">
-        <PulseLoader />
+      <div className="flex flex-col gap-4 max-lg:justify-center">
+        <div className="flex gap-4">
+          {Array(4)
+            .fill()
+            .map((_, index) => (
+              <TextSkeleton key={index} />
+            ))}
+        </div>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
+          {Array(8)
+            .fill()
+            .map((_, index) => (
+              <ProjectCardSkeleton key={index} />
+            ))}
+        </div>
       </div>
     );
   if (errCategory || errProjects) return <p>Something just error...</p>;
